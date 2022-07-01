@@ -91,13 +91,44 @@ namespace Friello.Controllers
             Response.Cookies.Append("basket", JsonConvert.SerializeObject(products), new CookieOptions { MaxAge = TimeSpan.FromDays(14) });
             return RedirectToAction("showItem", "basket");
         }
-        public IActionResult Minus(int id)
-        {
-
-        }
         public IActionResult Plus(int id)
         {
+            string basket = Request.Cookies["basket"];
+            List<BasketVM> products = JsonConvert.DeserializeObject<List<BasketVM>>(basket);
 
+            BasketVM del = products.FirstOrDefault(x => x.Id == id);
+
+            if (del.ProductCount <= 10)
+            {
+                del.ProductCount++;
+            }
+            else
+            {
+                NotFound();
+            }
+            Response.Cookies.Append("basket", JsonConvert.SerializeObject(products), new CookieOptions { MaxAge = TimeSpan.FromDays(14) });
+            return RedirectToAction("showitem", "basket");
+
+        }
+        public IActionResult Minus(int id)
+        {
+            string basket = Request.Cookies["basket"];
+            List<BasketVM> products = JsonConvert.DeserializeObject<List<BasketVM>>(basket);
+
+            BasketVM del = products.FirstOrDefault(x => x.Id == id);
+
+            if (del.ProductCount > 1)
+            {
+                del.ProductCount--;
+            }
+            else
+            {
+                products.Remove(del);
+            }
+            Response.Cookies.Append("basket", JsonConvert.SerializeObject(products), new CookieOptions { MaxAge = TimeSpan.FromDays(14) });
+
+
+            return RedirectToAction("showitem", "basket");
         }
     }
 }

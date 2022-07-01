@@ -29,11 +29,13 @@
                         <td><img width="100" src="~/img/@item.ImageUrl" /></td>
                         <td>@item.Name</td>
                         <td>@item.Price</td>
-                        <td> <button style="border: none; padding: 1px, 8px;"> <a>-</a> </button> @item.ProductCount <button style=" border: none; padding: 1px, 8px;">+</button></td>
+                        <td> <a asp-controller="basket" asp-action="minus" asp-route-id="@item.Id" style="padding:10px">-</a>@item.ProductCount <a asp-controller="basket" asp-action="plus" asp-route-id="@item.Id" style="padding:10px">+</a></td>
                         <td>@(item.Price*item.ProductCount)</td>
+                        <td><a asp-controller="basket" asp-action="remove" asp-route-id="@item.Id">x</a></td>
+
                         @*<td>@item.ProductCount</td>*@
 
-                        <td> <button> <a>X</a></button> </td>
+                        @*<td> <button> <a>X</a></button> </td>*@
                     </tr>
                     }
                 </tbody>
