@@ -227,6 +227,7 @@ interface DomQueryConstructor {
     text(elem: Node): string;
     contains(context: any, elem: Node): number;
     filter(expr: string, elems: Node[], not?: boolean): any;
+
 }
 interface DomQuery<T extends Node = Node> extends ArrayLike<T> {
     init: (selector?: DomQueryInitSelector<T>, context?: Node) => void;
@@ -2827,8 +2828,9 @@ interface TinyMCE extends EditorManager {
     geom: {
         Rect: Rect;
     };
+
     util: {
-        Promise: PromiseConstructor;
+        
         Delay: Delay;
         Tools: Tools;
         VK: VK;

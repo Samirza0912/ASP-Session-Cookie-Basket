@@ -58,7 +58,7 @@ namespace Friello
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=dashboard}/{action=Index}/{id?}"
-                    )
+                    );
                 endpoints.MapDefaultControllerRoute();
             });
         }
