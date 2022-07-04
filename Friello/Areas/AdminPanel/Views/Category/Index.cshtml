@@ -1,8 +1,39 @@
-﻿
+﻿@model List<Category>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
-<h1>Index</h1>
+<div class="row">
+    <a class="btn btn-primary" asp-action="create">add category</a>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Desc</th>
+                    <th>Settings</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Name</td>
+                        <td>@item.Desc</td>
+                        <td>
+                            <a asp-action="update" asp-route-id="@item.id">Update</a>
+                            <a asp-action="detail" asp-route-id="@item.id">Detail</a>
+                            <a asp-action="delete" asp-route-id="@item.id">Delete</a>
+                        </td> 
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
