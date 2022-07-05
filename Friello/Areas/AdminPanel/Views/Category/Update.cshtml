@@ -1,6 +1,6 @@
 ﻿@model Category
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
     Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -29,20 +29,13 @@
     </div>
 </div>
 @section Scripts{
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <partial name="_ValidationPartial">
-        @*<script>*@
+        <script>
             //let formData = new FormData();
             //formData.Append("Name", "");
             //formData.Append("Desc","")
-        @*</script>*@
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#Desc'))
-                .then(editor => {
-                })
-                .catch(error => {
-                });
         </script>
 }
+
+
 
