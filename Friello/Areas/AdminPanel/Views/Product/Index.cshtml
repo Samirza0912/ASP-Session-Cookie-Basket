@@ -1,0 +1,44 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="row">
+    <a class="btn btn-primary" asp-action="create">add product</a>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Settings</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    count++;
+                <tr>
+                    <td>@count</td>
+                    <th><img width="200" src="~/img/@item.ImageUrl" /></th>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <th>@item.CategoryName.Name</th>
+                    <td>
+                        <a asp-action="update" asp-route-id="@item.Id">Update</a>
+                        <a asp-action="detail" asp-route-id="@item.Id">Detail</a>
+                        <a asp-action="delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
