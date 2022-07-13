@@ -23,7 +23,7 @@ namespace Friello.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            ViewBag.User = ";"
+            ViewBag.User = "";
             if (User.Identity.IsAuthenticated)
             {
                 AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);

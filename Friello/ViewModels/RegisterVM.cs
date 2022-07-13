@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Friello.ViewComponents
+namespace Friello.ViewModels
 {
     public class RegisterVM
     {

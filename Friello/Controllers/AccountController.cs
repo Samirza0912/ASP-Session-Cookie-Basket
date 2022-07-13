@@ -60,7 +60,8 @@ namespace Friello.Areas.AdminPanel.Controllers
         }
         public IActionResult Login()
         {
-            return RedirectToAction("index", "home");
+            if (User.Identity.IsAuthenticated) return RedirectToAction("index", "home");
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
