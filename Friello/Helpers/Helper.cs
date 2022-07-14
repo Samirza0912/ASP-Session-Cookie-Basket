@@ -15,5 +15,11 @@ namespace Friello.Helpers
                 System.IO.File.Delete(path);
             }
         }
+        public enum UserRoles 
+        { Admin,
+          Member,
+          SuperAdmin 
+        }
+       
     }
 }

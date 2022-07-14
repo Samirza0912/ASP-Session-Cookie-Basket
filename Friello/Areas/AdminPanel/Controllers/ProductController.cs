@@ -1,6 +1,7 @@
 ﻿using Friello.DAL;
 using Friello.Extentions;
 using Friello.Models;
+using Friello.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,9 +26,17 @@ namespace Friello.Areas.AdminPanel.Controllers
             _env = env;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page=1, int take=5)
         {
-            return View(_context.Products.Include(p=>p.CategoryName).ToList());
+            List<Product> products = _context.Products.Include(p => p.CategoryName).Skip((page-1)*take).Take(take).ToList();
+            PaginationVM<Product> paginationVM = new PaginationVM<Product>(products, PageCount(take), page);
+            return View(products);
+
+        }
+        private int PageCount(int take)
+        {
+            List<Product> products = _context.Products.ToList();
+            return (int)Math.Ceiling((decimal)products.Count() / take);
         }
         public async Task<IActionResult> Detail(int? id)
         {

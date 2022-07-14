@@ -1,5 +1,6 @@
 ﻿using Friello.DAL;
 using Friello.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Friello.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
@@ -22,6 +24,7 @@ namespace Friello.Areas.AdminPanel.Controllers
             List<Category> categories = _context.Categories.ToList();
             return View(categories);
         }
+        [AllowAnonymous]
         public IActionResult Create()
         {
             

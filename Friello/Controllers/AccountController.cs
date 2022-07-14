@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Friello.Helpers.Helper;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Friello.Areas.AdminPanel.Controllers
@@ -55,6 +56,7 @@ namespace Friello.Areas.AdminPanel.Controllers
                 }
                 return View(registerVM);
                 await _signInManager.SignInAsync(user, true);
+                await _userManager.AddToRoleAsync(user, UserRoles.Member.ToString());
             };
             return RedirectToAction("index", "home");
         }
@@ -65,7 +67,7 @@ namespace Friello.Areas.AdminPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM loginVM)
+        public async Task<IActionResult> Login(LoginVM loginVM, string ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -88,12 +90,35 @@ namespace Friello.Areas.AdminPanel.Controllers
                 ModelState.AddModelError("", "error");
                 return View(loginVM);
             }
+            await _signInManager.SignInAsync(appUser, true);
+            var roles = await _userManager.GetRolesAsync(appUser);
+            foreach (var item in roles)
+            {
+                if (item=="Admin")
+                {
+                    return RedirectToAction("index", "dashboard", new { area = "AdminPanel" });
+                }
+            }
+            if (ReturnUrl!=null)
+            {
+                return Redirect(ReturnUrl);
+            }
             return RedirectToAction("index", "home");
         }
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("login");
+        }
+        public async Task CreateRole()
+        {
+            foreach (var item in Enum.GetValues(typeof(UserRoles)))
+            {
+                if (!await _roleManager.RoleExistsAsync(item.ToString()))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = item.ToString() });
+                }
+            };
         }
     }
 }
