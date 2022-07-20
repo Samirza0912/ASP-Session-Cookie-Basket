@@ -1,0 +1,45 @@
+﻿@model List<AppUser>
+@{ 
+    int count = 0;
+}
+<div class="row">
+    <div>
+        <form asp-action="Index">
+            <div class="form-group">
+                <input name="search" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Search">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+       
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Fullname</th>
+                    <th>Settings</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Fullname</td>
+                        <td>
+                            <a asp-action="update" asp-route-id="@item.Id">Update</a>
+                            <a asp-action="detail" asp-route-id="@item.Id">Detail</a>
+                            <a asp-action="delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

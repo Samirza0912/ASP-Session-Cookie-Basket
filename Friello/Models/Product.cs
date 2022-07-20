@@ -18,6 +18,7 @@ namespace Friello.Models
         public int CategoryId { get; set; }
         public Category CategoryName { get; set; }
         public int Count { get; set; }
+        public List<SalesProduct> SalesProducts { get; set; }
     }
 
 }

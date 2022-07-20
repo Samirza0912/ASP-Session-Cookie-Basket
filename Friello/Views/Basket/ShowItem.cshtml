@@ -3,9 +3,27 @@
     ViewData["Title"] = "ShowItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int count = 0;
+    double total = 0;
+}
+@*@inject ISum sum;*@
+@{ 
+
 }
 
 <div class="container">
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert=success sale">
+            @TempData["success"]
+        </div>
+    }
+    @if (TempData["fail"] != null)
+    {
+        <div class="alert alert=danger sale">
+            @TempData["fail"]
+        </div>
+    }
     <div class="row">
         @if (Model.Count() > 0)
         {
@@ -23,20 +41,21 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
+                        total += item.Price * item.ProductCount;
                         count++;
-                    <tr>
-                        <th scope="row">@count</th>
-                        <td><img width="100" src="~/img/@item.ImageUrl" /></td>
-                        <td>@item.Name</td>
-                        <td>@item.Price</td>
-                        <td> <a asp-controller="basket" asp-action="minus" asp-route-id="@item.Id" style="padding:10px">-</a>@item.ProductCount <a asp-controller="basket" asp-action="plus" asp-route-id="@item.Id" style="padding:10px">+</a></td>
-                        <td>@(item.Price*item.ProductCount)</td>
-                        <td><a asp-controller="basket" asp-action="remove" asp-route-id="@item.Id">x</a></td>
+                        <tr>
+                            <th scope="row">@count</th>
+                            <td><img width="100" src="~/img/@item.ImageUrl" /></td>
+                            <td>@item.Name</td>
+                            <td>@item.Price</td>
+                            <td> <a asp-controller="basket" asp-action="minus" asp-route-id="@item.Id" style="padding:10px">-</a>@item.ProductCount <a asp-controller="basket" asp-action="plus" asp-route-id="@item.Id" style="padding:10px">+</a></td>
+                            <td>@(item.Price*item.ProductCount)</td>
+                            <td><a asp-controller="basket" asp-action="remove" asp-route-id="@item.Id">x</a></td>
 
-                        @*<td>@item.ProductCount</td>*@
+                            @*<td>@item.ProductCount</td>*@
 
-                        @*<td> <button> <a>X</a></button> </td>*@
-                    </tr>
+                            @*<td> <button> <a>X</a></button> </td>*@
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -46,5 +65,21 @@
             <a asp-controller="home" asp-action="index">Return To Home</a>
         }
     </div>
+    <div class="row">
+        @*@total*@
+        @Model.Sum(p => p.Price * p.ProductCount)
+        <form asp-action="sale" method="post">
+            <button type="submit" class="btn btn-primary">Sale</button>
+        </form>
+    </div>
 </div>
 
+@section Scripts{ 
+<script>
+    setTimeout(function () {
+        document.querySelectorAll(".sale").forEach(item => {
+            item.remove()
+        });
+    },5000)
+</script>
+}

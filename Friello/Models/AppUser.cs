@@ -9,5 +9,8 @@ namespace Friello.Models
     public class AppUser:IdentityUser
     {
         public string Fullname { get; set; }
+        public DateTime UserCreateTime { get; set; }
+        public DateTime ConfirmMailTime { get; set; }
+        public List<Sale> MyProperty { get; set; }
     }
 }

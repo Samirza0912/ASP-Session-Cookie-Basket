@@ -30,7 +30,7 @@ namespace Friello.Areas.AdminPanel.Controllers
         {
             List<Product> products = _context.Products.Include(p => p.CategoryName).Skip((page-1)*take).Take(take).ToList();
             PaginationVM<Product> paginationVM = new PaginationVM<Product>(products, PageCount(take), page);
-            return View(products);
+            return View(paginationVM);
 
         }
         private int PageCount(int take)

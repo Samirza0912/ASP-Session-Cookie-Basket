@@ -17,21 +17,23 @@ namespace Friello.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Bio> Bios { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SalesProduct> SalesProducts { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    base.OnModelCreating(builder);
 
-            builder.Entity<Bio>().HasData(
-                new Bio
-                {
-                    Id = 1,
-                    ImageUrl = "favicon.png",
-                    AuthorName = "Samir",
-                    Facebook = "facebook.com",
-                    Linkedin = "linkedin.com"
-                }
-                );
-        }
+        //    builder.Entity<Bio>().HasData(
+        //        new Bio
+        //        {
+        //            Id = 1,
+        //            ImageUrl = "favicon.png",
+        //            AuthorName = "Samir",
+        //            Facebook = "facebook.com",
+        //            Linkedin = "linkedin.com"
+        //        }
+        //        );
+        //}
     }
 }

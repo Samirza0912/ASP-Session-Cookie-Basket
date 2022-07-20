@@ -1,0 +1,21 @@
+﻿@model RoleVM
+@{ 
+}
+<form method="post">
+    <h1>@Model.Fullname</h1>
+    <div class="form-group">
+        <input type="hidden" name="id"value="@Model.userId"/>
+        @foreach (var item in Model.roles)
+        {
+            if (Model.userRoles.FirstOrDefault(p => p == item.ToString()) == item.ToString())
+            {
+                <input name="roles" value="@item.ToString()" class="form-check-input" type="checkbox" checked /> @item <br />
+            }
+            else
+            {
+                <input name="roles" value="@item.ToString()" class="form-check-input" type="checkbox" /> @item <br /> 
+            }
+        }
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
